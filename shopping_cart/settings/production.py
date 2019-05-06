@@ -27,7 +27,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 # SECURITY WARNING: keep the secret key used in production secret!
 #SECRET_KEY = 'm^5m*d+s21m_h53!d0xfv^*2im2s-g^t#9^0f3zaw-&(vmk-i*'
 SECRET_KEY =  os.environ.get('SECRET_KEY')
-# SECURITY WARNING: don't run with debug turned on in production!
+
 DEBUG = False
 
 ALLOWED_HOSTS = ['gun-shop-romed.herokuapp.com']

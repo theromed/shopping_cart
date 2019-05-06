@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load static %}
+{% block metadescription %}
+	{% if category %}
+		{{ category.description|truncatewords:155 }}
+	{% else %}
+		Welcome to the gun store where you can buy a convenient and reliable weapon.
+	{% endif %}
+{% endblock metadescription %}
+{% block title %}
+	{% if category %}
+		{{ category.name }} - Training store
+	{% else %}
+		See Our Gun Collection - Training store
+	{% endif %}
+{% endblock title %}
+{% block content %}
+	
+	{% if category %}
+		<div class='row my_row_class'>
+			<div class='mx-auto'>
+				<p> <a href='{% url "shop:allProdCat" %}'> Our Collection </a> | {{  category.name }}</p>
+			</div>
+		</div>
+	{% endif %}
+	<div class='mx-auto'>
+	{% if category %}
+		<img class='my_image' src="{{category.image.url}}" alt="{{category.name}}">
+	</div>
+	<br>
+	<div>
+		<h1 class='text-center my_title'> {{ category.name }}</h1>
+		<p class='text-justify'> {{ category.description }}</p>
+	</div>
+	{% else %}
+		<img class='my_image my_image_padding' src="{% static 'img/banner.png' %}" alt="Our Product Collection">
+	<br>
+	<div>
+		<h class='text-center my_title'> Our Product Collection </h1>
+		<p class='text-justify'>   </p>
+	</div>
+	{% endif %}
+	<div class='container'>
+		<div class='row mx-auto'>
+			{% for product in products.object_list %}
+				<div class='my_bottom_margin col-9 col-sm-12 col-md-4 col-md-12 col-lg-4'>
+					<div class="card text-center" style="min-width: 18rem;">
+						<a href=" {{product.get_url}}">  <img class="card-img-top my_image"  src="{{product.image.url}}" alt="{{product.name}}">  </a>
+						<div class='card-body'>
+							<h4> {{ product.name }}</h4>
+							<p> $ {{product.price }}</p>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+
+		</div>
+
+		<!-- Другой вариант пагинации 
+		<div class='mx-auto'>
+			{% if  products.paginator.num_pages > 1 %}
+				<hr>
+				<div class='text-center'>
+					{% for page in products.paginator.page_range %}
+						<a href="?page={{page}}" class="btn btn-light btn-sm {% if products.number == page%} active {% endif%}"> {{page}}</a>
+					{% endfor %}
+				</div>
+			{% endif %}
+		</div> -->
+
+		<div class='pagination my-4 '> <!-- Пагинация products - ключ из views  -->
+			<div class='mx-auto'>
+				<span class="step-links ">
+				{% if products.has_previous %}
+            		<a href="?page=1" class="btn-light btn-sm"> Начало </a>
+            		<a href="?page={{products.previous_page_number}}" class="btn-light btn-sm"> Предыдущая </a>
+        		{% endif%}
+        
+        		{% for num in products.paginator.page_range %}
+            		{% if num == products.number %}
+                	<button class="btn btn-light btn-sm"> {{num}}</button>
+            			{% elif num > products.number|add:'-3' and num < products.number|add:'3' %}
+                			<a href="?page={{num}}" class="btn-light btn-sm"> {{ num }} </a>
+            		{% endif %}
+        		{% endfor %}
+        
+        		{% if products.has_next %}
+            		<a href="?page={{products.next_page_number}}" class="btn-light btn-sm"> Следующая </a>
+            		<a href="?page={{products.paginator.num_pages}}" class="btn-light btn-sm"> Последняя </a>
+        		{% endif%}
+        		</span>
+        	</div>
+	
+		</div>
+		
+
+
+			<br>
+
+	</div>
+
+
+
+
+
+{% endblock content %}

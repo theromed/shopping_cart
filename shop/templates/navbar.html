@@ -1,3 +1,4 @@
+{% load static %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,11 +28,25 @@
       
       
     </ul>
-    <form class="form-inline my-2 my-lg-0" action='{% url "search_app:searchResult" %}' method='get'>
+<script src="{% static 'js/searchApp.js' %}"> </script>
+
+  <form class="search">
+    <input class="search-input" id="input" type="text" autocomplete="off"/>
+    <label class="search-label" for="input"></label>
+    <button class="search-button" type="reset"></button>
+    <div class="search-border"></div>
+    <div class="search-close">x</div>
+  </form>
+    
+  </div>
+</nav>
+
+
+
+
+<!--<form class="form-inline my-2 my-lg-0" action='{% url "search_app:searchResult" %}' method='get'>
       {% csrf_token%}
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name='q'>
       <button class="btn btn-secondary my-2 my-sm-0" type="submit"> <i class="fas fa-search-dollar"></i> </button>
-    </form>
-  </div>
-</nav>
+    </form> -->
 

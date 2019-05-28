@@ -18,7 +18,7 @@ def orderHistory(request):
 		username = str(request.user.username)
 		order_details = Order.objects.filter(billingName=username)
 	return render(request, 'order/orders_list.html', {'order_details':order_details})
-
+#@login_required(login_url='/account/login/')
 @login_required()
 def viewOrder( request, order_id):
 	if request.user.is_authenticated:
